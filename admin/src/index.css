@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;800&family=Outfit:wght@100..900&family=Poppins:wght@100;200;300&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: outfit;
+}
+
+body{
+  min-height: 100vh;
+  background: #fcfcfc;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+hr{
+  border: none;
+  height: 1px;
+  background: #a9a9a9;
+}
+@media(max-width:900px){
+  .sidebar-option p{
+  display: none;
+}
+}
