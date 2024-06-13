@@ -1,63 +1,45 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { StoreContext } from '../../context/StoreContext';
 
 const ShipInfo = () => {
+  const { getTotalCartAmount, token, food_list, cartItems, url } =
+    useContext(StoreContext);
+
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setData((data) => ({
+      ...data,
+      [name]: value,
+    }));
+  };
+
+  const placeOrder = async (event) => {
+    event.preventDefault();
+
+    let orderItems= [];
+    food_list.map((item)=> {
+      if(cartItems[item._id]>0){
+        let itemInfo = item;
+        itemInfo["quantity"] = cartItems[item._id]
+        orderItems.push(itemInfo)
+      }
+    })
+    console.log(orderItems)
+  }
   return (
-    <div className="w-full max-w-[max(30%,500px)]">
-      <div className="left">
-        <p className="text-3xl font-semibold mb-12">Delivery Information</p>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            className=" mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-            placeholder="FirstName"
-          />
-          <input
-            type="text"
-            className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-            placeholder="Last Name"
-          />
-        </div>
-        <input
-          type="email"
-          className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-          placeholder="Email Address"
-        />
-        <input
-          type="text"
-          className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-          placeholder="Street"
-        />
-        <div className="flex gap-2">
-          <input
-            type="text"
-            className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-            placeholder="City"
-          />
-          <input
-            type="text"
-            className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-            placeholder="State"
-          />
-        </div>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-            placeholder="Zip code"
-          />
-          <input
-            type="text"
-            className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-            placeholder="Country"
-          />
-        </div>
-        <input
-          type="phone"
-          className="mt-4 w-full p-2 border border-solid border-[#c5c5c5] rounded-md outline-orange-700"
-          placeholder="Phone No."
-        />
-      </div>
-    </div>
+    <div className=""></div>
   );
 }
 
