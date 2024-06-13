@@ -2,7 +2,7 @@ import orderModel from "../Models/orderModel.js";
 import userModel from "../Models/userModel.js"
 import Stripe from "stripe"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // placing the order for frontend
  const placeOrder = async (req,res) => {
 
@@ -19,27 +19,27 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
         await userModel.findByIdAndUpdate(req.body.userId,{cartData:{}})
 
-        const line_items = req.body.items.map((item)=> ({
-            price_data:{
-                currency:"inr",
-                product_data:{
-                    name:item.name
-                },
-                unit_amount:item.price*100*83
+        const line_items = req.body.items.map((item) => ({
+          price_data: {
+            currency: "inr",
+            product_data: {
+              name: item.name,
             },
-            quantity:item.quantity
-        }))
+            unit_amount: item.price * 100 * 83,
+          },
+          quantity: item.quantity,
+        }));
 
         line_items.push({
-            price_data:{
-              currency:"inr",
-            product_data:{
-                name:"delivery Charges"
+          price_data: {
+            currency: "inr",
+            product_data: {
+              name: "delivery Charges",
             },
-            unit_amount:2*100*83
-        },
-        quantity:1
-        })  
+            unit_amount: 2 * 100 * 83,
+          },
+          quantity: 1,
+        });  
 
         const session = await stripe.checkout.sessions.create({
             line_items:line_items,
@@ -61,4 +61,31 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
     }
 }
 
-export {placeOrder}
+const verifyOrder = async (req,res) => {
+    const {orderId,success} = req.body;
+    try{
+        if(success=="true"){
+            await orderModel.findByIdAndUpdate(orderId,{payment:true})
+            res.json({
+                success:true,
+                message:"paid"
+            })
+        }
+        else{
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({
+              success: false,
+              message: "Not paid",
+            });
+        }
+    }
+    catch(err){
+        console.log(err)
+         res.json({
+           success: false,
+           message: "Error occured in payment",
+         });
+    }
+}
+
+export {placeOrder,verifyOrder}

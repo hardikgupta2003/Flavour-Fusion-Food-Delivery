@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import { useState } from "react";
 import LoginPopup from "./components/LoginPopup";
 import OrderPlace from "./pages/OrderPlace";
+import Verify from "./pages/Verify";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<OrderPlace />} />
+          <Route path="/verify" element={<Verify/>}/>
         </Routes>
 
         <Footer />

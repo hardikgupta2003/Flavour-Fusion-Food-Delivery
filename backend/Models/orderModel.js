@@ -23,7 +23,6 @@ const orderSchema = mongoose.Schema({
     },
     date:{
         type:Date,
-        required:true
     },
     payment:{
         type:Boolean,
