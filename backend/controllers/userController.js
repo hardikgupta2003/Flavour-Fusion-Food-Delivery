@@ -105,17 +105,15 @@ export const loginUser = async (req,res)=>{
             })
         }
 
-        const payload = {
-          email: existingUser.email,
-          id: existingUser._id
-        };
+        // const payload = {
+        //   email: existingUser.email,
+        //   id: existingUser._id
+        // };
 
         //verify password & generate JWT token
         if(await bcrypt.compare(password,existingUser.password)){
             //password match
-            let token = jwt.sign(payload,process.env.JWT_SECRET,{
-                expiresIn:"2h"
-            });
+            const token = createToken(existingUser._id)
 
             existingUser.token = token;
             existingUser.password = undefined;
@@ -129,7 +127,8 @@ export const loginUser = async (req,res)=>{
             res.status(200).cookie("token",token,options).json({
                 success:true,
                 message:"User logged in successfully!",
-                user:existingUser
+                user:existingUser,
+                token
             })
             }
             else{

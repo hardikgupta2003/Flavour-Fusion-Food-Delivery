@@ -3,12 +3,12 @@ import { assets } from "../assets/assets";
 import { StoreContext } from "../context/StoreContext";
 
 const FoodItem = ({ id, price, name, description, image }) => {
-    const {addToCart,cartItems,removeFromCart} = useContext(StoreContext)
+    const {addToCart,cartItems,removeFromCart,url} = useContext(StoreContext)
     const [itemCount,setItemCount] = useState(0)
   return (
     <div className="w-full m-auto border rounded-2xl transition-all duration-200 hero">
       <div className="relative">
-        <img src={image} alt="" className="w-full  rounded-2xl " />
+        <img src={url+"/images/"+image} alt="" className="w-full  rounded-2xl " />
         {!cartItems[id]
          ? (
           <div

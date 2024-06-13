@@ -11,7 +11,7 @@ import OrderPlace from "./pages/OrderPlace";
 
 function App() {
   const [showLogin,setShowLogin]= useState(false);
-  const [showCart,setShowCart]= useState(false);
+
   return (
     <>
       {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}

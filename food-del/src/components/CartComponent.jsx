@@ -3,7 +3,7 @@ import { StoreContext } from '../context/StoreContext';
 import { MdDelete } from "react-icons/md";
 import Checkout from './Checkout';
 export const CartComponent = () => {
-      const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
+      const { cartItems, food_list, removeFromCart, url } = useContext(StoreContext);
   return (
     <div>
       <div className=" mx-auto mt-24 h-full w-10/12">
@@ -23,7 +23,10 @@ export const CartComponent = () => {
               return (
                 <div className="">
                   <div className="grid grid-cols-custom-layout text-center items-center text-sm  my-2 text-black ">
-                    <img src={item.image} className="w-[150px] rounded " />
+                    <img
+                      src={url + "/images/" + item.image}
+                      className="w-[150px] rounded "
+                    />
                     <p>{item.name}</p>
                     <p>${item.price}</p>
                     <p>{cartItems[item._id]}</p>
