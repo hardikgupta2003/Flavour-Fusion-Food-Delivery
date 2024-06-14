@@ -63,8 +63,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const verifyOrder = async (req,res) => {
     const {orderId,success} = req.body;
+    console.log(orderId,success);
     try{
-        if(success=="true"){
+        if(success==="true"){
             await orderModel.findByIdAndUpdate(orderId,{payment:true})
             res.json({
                 success:true,
@@ -88,4 +89,24 @@ const verifyOrder = async (req,res) => {
     }
 }
 
-export {placeOrder,verifyOrder}
+const userOrders = async (req,res) => {
+  try{
+    const orders = await  orderModel.find({
+      userId:req.body.userId
+    });
+    res.status(200).json({
+      success:true,
+      data:orders
+    })
+
+  }
+  catch(err){
+    console.log(err)
+    res.json({
+      success:false,
+      message:"error occurred"
+    })
+  }
+}
+
+export {placeOrder,verifyOrder,userOrders}

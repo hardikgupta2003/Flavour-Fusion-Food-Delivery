@@ -8,6 +8,8 @@ import { useState } from "react";
 import LoginPopup from "./components/LoginPopup";
 import OrderPlace from "./pages/OrderPlace";
 import Verify from "./pages/Verify";
+import MyOrders from "./pages/MyOrders";
+import { Spinner } from "./components/Spinner";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<OrderPlace />} />
           <Route path="/verify" element={<Verify/>}/>
+          <Route path="/myorders" element={<MyOrders/>}/>
+     
         </Routes>
 
         <Footer />

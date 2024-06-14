@@ -87,10 +87,13 @@ const Navbar = ({setShowLogin}) => {
           <div className="relative profile ">
             <img src={assets.profile_icon} alt="" />
             <ul className=" absolute hidden right-0 z-[1] profile-dropdown">
+              <Link to="/myorders" > 
               <li className=" cursor-pointer flex  gap-2 items-center justify-start hover:text-orange-600">
                 <img src={assets.bag_icon} className="  w-5" />
                 Orders
               </li>
+              </Link>
+             
               <hr />
               <li 
               onClick={logout}
