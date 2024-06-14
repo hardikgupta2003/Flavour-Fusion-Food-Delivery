@@ -22,7 +22,8 @@ const OrderPlace = () => {
     zipcode: "",
     country: "",
     phone: "",
-  });
+    });
+  const navigate = useNavigate();
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -68,9 +69,16 @@ const OrderPlace = () => {
      alert("Error occurred while placing order.");
    }
  };
+ useEffect(()=>{
+  if(!token){
+    navigate('/login');
+  }
+  else if(getTotalCartAmount()===0){
+    navigate('/');
+  }
+ },[token])
 
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize the total amount with the subtotal
